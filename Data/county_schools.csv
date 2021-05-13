@@ -1,13 +1,46 @@
-X,Y,LEVEL,SCHOOL_NAM,ADDRESS,CITY,STATE,ZIP_CODE,PHONE_NUMB
--87.35054,36.52262,4,Alternative School Middle/High School,430 Greenwood Ave.,Clarksville,TN,37040,542-5057
--87.16022,36.48334,1,Carmel Elementary,4925 Sango Road,Clarksville,TN,37043,802-5025
--87.41865,36.46590,1,Cumberland Heights Elementary,2093 Ussery Road South,Clarksville,TN,37040,648-5695
--87.22681,36.49153,1,East Montgomery Elementary,230 McAdoo Creek Road,Clarksville,TN,37043,358-2868
--87.45115,36.55043,1,Liberty Elementary,849 South Liberty Church Road,Clarksville,TN,37042,905-5729
--87.38522,36.39956,1,Montgomery Central Elementary,4011 Highway 48,Cunningham,TN,37052,387-3208
--87.38705,36.39990,3,Montgomery Central High,3955 Highway 48,Cunningham,TN,37052,387-3201
--87.38333,36.40129,2,Montgomery Central Middle,3941 Highway 48,Cunningham,TN,37052,387-2575
--87.28845,36.62079,1,Oakland Elementary,1050 Cherry Blossom Lane,Clarksville,TN,37040,920-7422
--87.35219,36.61349,1,Pisgah Elementary,1770 Hazelwood Road,Clarksville,TN,37042,802-6790
--87.21184,36.50777,1,Sango Elementary,3585 Sango Road,Clarksville,TN,37043,358-4093
--87.50413,36.54444,1,Woodlawn Elementary,2250 Woodlawn Road,Woodlawn,TN,37191,648-5680
+SCHOOL_NAM,X,Y,LEVEL,ADDRESS,CITY,STATE,ZIP_CODE,PHONE_NUMB,ENROLLMENT
+Board of Education,-87.34496582,36.52042616,0,621 Gracey Avenue,Clarksville,TN,37040,648-5600,0
+Greenwood Complex,-87.34853507,36.52311881,0,430 Greenwood Avenue,Clarksville,TN,37040,648-5650,0
+Learning Center,-87.33901714,36.51922967,0,343 Pageant Lane,Clarksville,TN,37040,648-5653,0
+Maintenance Department,-87.25788599,36.50433782,0,2620 Highway 41-A South,Clarksville,TN,37043,358-4089,0
+Transportation Department,-87.25820734,36.50369093,0,2620 Highway 41-A South,Clarksville,TN,37043,358-4089,0
+Barkers Mill Elementary,-87.38507909,36.62552434,1,1230 Little Bobcat Road,Clarksville,TN,37042,906-7235,993
+Barksdale Elementary,-87.30036255,36.51276316,1,1920 Madison Extention,Clarksville,TN,37043,648-5685,616
+Burt Elementary,-87.3510365,36.53693961,1,110 Bailey Street,Clarksville,TN,37040,648-5630,347
+Byrns L. Darden Elementary,-87.38021447,36.55144261,1,609 E Street,Clarksville,TN,37040,648-5615,634
+Carmel Elementary,-87.16022,36.48334,1,4925 Sango Road,Clarksville,TN,37043,802-5025,701
+Cumberland Heights Elementary,-87.41865,36.4659,1,2093 Ussery Road South,Clarksville,TN,37040,648-5695,648
+East Montgomery Elementary,-87.22681,36.49153,1,230 McAdoo Creek Road,Clarksville,TN,37043,358-2868,674
+Glenellen Elementary,-87.33715808,36.58514057,1,825 Needmore Road,Clarksville,TN,37040,920-6158,1109
+Hazelwood Elementary,-87.36133898,36.62914474,1,2623 Tiny Town Road,Clarksville,TN,37042,553-2075,951
+Kenwood Elementary,-87.3888611,36.57920788,1,1101 Peachers Mill Road,Clarksville,TN,37042,553-2059,731
+Liberty Elementary,-87.45115,36.55043,1,849 South Liberty Church Road,Clarksville,TN,37042,905-5729,857
+Minglewood Elementary,-87.41597595,36.57605932,1,215 Cunningham Lane,Clarksville,TN,37042,648-5646,791
+Montgomery Central Elementary,-87.38522,36.39956,1,4011 Highway 48,Cunningham,TN,37052,387-3208,508
+Moore Magnet Elementary,-87.33792072,36.51946598,1,1350 Madison Street,Clarksville,TN,37040,648-5635,514
+Norman Smith Elementary,-87.34808242,36.5184667,1,740 Greenwood Avenue,Clarksville,TN,37040,648-5660,555
+Northeast Elementary,-87.30996035,36.61584338,1,3705 Trenton Road,Clarksville,TN,37040,648-5662,806
+Oakland Elementary,-87.28845,36.62079,1,1050 Cherry Blossom Lane,Clarksville,TN,37040,920-7422,966
+Pisgah Elementary,-87.35219,36.61349,1,1770 Hazelwood Road,Clarksville,TN,37042,802-6790,809
+Ringgold Elementary,-87.41213122,36.5926708,1,240 Ringgold Road,Clarksville,TN,37042,648-5625,819
+Rossview Elementary,-87.25998314,36.55836905,1,2235 Cardinal Lane,Clarksville,TN,37043,645-1403,1063
+Sango Elementary,-87.21184,36.50777,1,3585 Sango Road,Clarksville,TN,37043,358-4093,749
+St. Bethlehem Elementary,-87.30031503,36.57483331,1,2450 Old Russellville Pike,Clarksville,TN,37040,648-5670,507
+West Creek Elementary,-87.38628834,36.6119901,1,1201 West Creek Coyote Trail,Clarksville,TN,37042,802-8637,942
+Woodlawn Elementary,-87.50413,36.54444,1,2250 Woodlawn Road,Woodlawn,TN,37191,648-5680,756
+Kenwood Middle,-87.38191214,36.580774,2,241 E Pine Mountain Road,Clarksville,TN,37042,553-2080,1164
+Montgomery Central Middle,-87.38333,36.40129,2,3941 Highway 48,Cunningham,TN,37052,387-2575,856
+New Providence Middle,-87.41165363,36.5734707,2,146 Cunningham Lane,Clarksville,TN,37042,648-5655,1162
+Northeast Middle,-87.31438218,36.61520448,2,3703 Trenton Road,Clarksville,TN,37040,648-5665,1400
+Richview Middle,-87.27558178,36.51968607,2,2350 Memorial Drive,Clarksville,TN,37043,648-5620,1198
+Rossview Middle,-87.25890924,36.56069936,2,2265 Cardinal Lane,Clarksville,TN,37043,920-6150,1476
+West Creek Middle,-87.38636694,36.60946995,2,1200 West Creek Coyote Trail,Clarksville,TN,37042,503-3288,1354
+Clarksville High,-87.27698316,36.51563994,3,151 Richview Road,Clarksville,TN,37043,648-5690,1398
+Kenwood High,-87.37935226,36.58211285,3,251 E Pine Mountain Road,Clarksville,TN,37042,905-7900,1289
+Middle College at APSU,-87.353047,36.53448054,3,Marks Bldg 601College St,Clarksville,TN,37040,221-1350,114
+Montgomery Central High,-87.38705,36.3999,3,3955 Highway 48,Cunningham,TN,37052,387-3201,1002
+Northeast High,-87.31710258,36.6180005,3,3710 Trenton Road,Clarksville,TN,37040,648-5640,1449
+Northwest High,-87.4349397,36.57446476,3,800 Lafayette Road,Clarksville,TN,37042,648-5675,1351
+Rossview High,-87.25564707,36.55821241,3,1237 Rossview Road,Clarksville,TN,37043,553-2070,1853
+West Creek High,-87.39061552,36.61147355,3,1210 West Creek Coyote Trail,Clarksville,TN,37042,503-1788,1494
+Alternative School Middle/High School,-87.35054,36.52262,4,430 Greenwood Ave.,Clarksville,TN,37040,542-5057,0
