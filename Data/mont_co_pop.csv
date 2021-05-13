@@ -1,4 +1,4 @@
-Tract,total_pop,male,female,under_5yo,age5_9yo,age10_14yo,age15_19yo,age_5_18,age20_24yo,age25_34yo,age35_44yo,age45_54yo,age55_59yo,age60_64yo,age65_74yo,age75_84yo,age85_over
+Tract,total_pop,male,female,under_5yo,age5_9yo,age10_14yo,age15_19yo,age5_18yo,age20_24yo,age25_34yo,age35_44yo,age45_54yo,age55_59yo,age60_64yo,age65_74yo,age75_84yo,age85_over
 1001,1162,621,541,0,0,32,24,38,268,404,229,93,68,7,37,0,0
 1002,1503,728,775,71,41,104,166,256,118,261,181,179,128,89,105,55,5
 1003,5549,2621,2928,453,629,463,214,1269,272,951,655,659,250,358,397,148,100
