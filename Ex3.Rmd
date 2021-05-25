@@ -1,0 +1,394 @@
+---
+title: "Exercise 3: Editing Map Attributes <br><small>Geographic Information Systems 1 Lab</small></br>"
+author: "GEOG 3150"
+output:
+  html_notebook:
+    df_print: paged
+    rows.print: 10
+    theme: cosmo
+    highlight: breezedark
+    number_sections: yes
+    toc: yes
+    toc_float:
+      collapsed: no
+      smooth_scroll: yes
+  pdf_document: default
+  html_document:
+    toc: yes
+    df_print: paged
+editor_options:
+  chunk_output_type: inline
+  mode: gfm
+---
+
+```{=html}
+<style type="text/css">
+
+h1.title {
+  font-size: 40px;
+  font-family: "Times New Roman", Times, serif;
+  color: DarkBlue;
+  text-align: center;
+}
+h4.author { /* Header 4 - and the author and data headers use this too  */
+  font-size: 20px;
+  font-family: "Times New Roman", Times, serif;
+  color: DarkBlue;
+  text-align: center;
+}
+
+.zoom {
+  transform-origin: 40% 50% 0;
+  transition: transform .2s;
+  margin: 0 auto;
+}
+.zoom img{
+	width:auto;
+	height:auto;	
+}
+.zoom:hover {
+  transform: scale(2);
+}
+
+th, td {padding: 5px;}
+
+</style>
+```
+<hr></hr>
+
+The purpose of this exercise is to help you learn various ways to edit the visual appearance of map data. For this exercise you will work on changing multiple aesthetics of the data to create a cartographically sound visualization that accurately depicts the information.
+
+# The Introduction
+
+Based on 2020 net population growth data, Clarksville, Tennessee is one of the fastest growing cities in the state. The _Clarksville-Montgomery County Regional Planning Commission_ (CMCRPC) and University of Tennessee researchers predict that the area will add about 90,000 new residents by 2040. According to the American Community Survey conducted by the U.S. Census Bureau, Montgomery County currently has a population of approximately 200,000 with nearly twenty percent (20%) being school aged children. With a two percent (2%) population increase in the past year, the _Clarksville-Montgomery County School System_ (CMCSS) developed a plan to build a new elementary, middle, and high school in the eastern portion of the county. An independent education advocacy group has hired you to help determine if CMCRPC and CMCSS selected the best location for the new school complex considering the population projections.
+
+In this exercise you will:
+
+-   Edit the visual appearance of data 
+-   Add customized data to your project
+-   Learn to add labels to data points
+-   Include ancillary data to enhance your map
+
+Software specific directions can be found for each step below. Please submit the answers to the questions and your final map by the due date.
+
+## Step One: The Data
+
+The data you will be using for this exercise comes from the 2019 American Community Survey conducted by the U.S. Census Bureau and from the _Clarksville-Montgomery County School System_. 
+
+<details>
+<summary><big>View Directions in <b> [ArcGIS Pro]{style="color:#ff4500"} </b></big></summary>
+
+Blah...blah...blah...
+
+<b><big>Question No. 1</big></b>
+<blockquote>
+_Insert Text Here_
+</blockquote>
+
+</details>
+<hr></hr>
+
+<details>
+<summary><big>View directions in <b> [QGIS]{style="color: #006400"} </b></big></summary>
+
+Blah...blah...blah...
+
+<b><big>Question No. 1</big></b>
+<blockquote>
+_Insert Text Here_
+</blockquote>
+
+</details>
+<hr></hr>
+
+<details><summary><big>View directions in <b> [R]{style="color: #6495ED"} </b></span></big></summary>
+Recall from the previous laboratory that you will begin by opening the appropriate **Colab notebook** for each exercise. In order to maintain consistency across labs, each repository will contain a new notebook with a constant nomenclature: 
+
+- Each **GitHub repository** will be named _GIS1-Exercise-_(followed by the exercise number)
+- Each **Colab notebook** will be named _GIS1_EX_\_(followed by the exercise number)
+
+Each notebook can be found in the corresponding _GitHub repository_, and following the directions in the introduction for [Exercise 2](https://chrismgentry.github.io/GIS1-Exercise-2/), can be opened by inserting **tocolab** immediately after _github_ in the web address. So the URL for this exercise would read:<br>
+
+```
+https://githubtocolab.com/chrismgentry/GIS1-Exercise-3/blob/main/GIS1_EX3.ipynb
+```
+
+You can copy/paste the link above or navigate to the file in the [Exercise 3 Repository](https://github.com/chrismgentry/GIS1-Exercise-3), click on the link for _GIS1_EX3.ipynb_, and add **tocolab** to the URL. In future labs you can simply change the repository and notebook numbers to match the exercise number to directly open each. Remember to save a copy of the notebook in your Google Drive. If you have any questions or need reminders of how to work in the **Google Colaboratory Environment** click [here](https://colab.research.google.com/notebooks/intro.ipynb) or refer back to the information provided in [Exercise 2 Notebook](https://githubtocolab.com/chrismgentry/GIS1-Exercise-2/blob/main/GIS1_EX2.ipynb). 
+
+Similar to Exercise 2, you will use the ```tidyverse```, ```maps```, and ```ggsn``` packages to complete the exercise. In addition to these packages, you will also need the ```tigris``` package. This will provide direct access to _Topologically Integrated Geographic Encoding and Referencing_ (TIGER) data from the U.S. Census Bureau within R. Information on the package can be found at the following [link](https://cran.r-project.org/web/packages/tigris/index.html).
+
+```{r install packages, echo=TRUE, message=FALSE, warning=FALSE}
+#install.packages('tidyverse')
+#install.packages('maps')
+#install.packages('ggsn')
+#install.packages('tigris')
+library('tidyverse')
+library('maps')
+library('ggsn')
+library('tigris')
+```
+
+With the appropriate packages installed and loaded to your environment, you can now use the ```tigris``` package to obtain census tract data for Montgomery County. For this you will use the ```tracts()``` function and first identify the state (by abbreviation) and the county name. Remember to use the **<-** operator to make an object from the data.
+
+```{r census tract, echo=TRUE, message=FALSE, warning=FALSE, results='hide'}
+montco_tracts <- tracts("TN", county = "Montgomery")
+```
+
+Examining the dataset you will see information regarding the state and county codes as well as other information regarding the polygons geometry. There is also a variable for _NAME_&nbsp; that details the census tract identification you will use in an upcoming step to add population information. Because this dataset is created using a specific object type called **simple features** you will need to add the polygons to ```ggplot2``` using the function ```geom_sf()``` instead of the ```geom_polygon()``` function we used in the previous exercise. To create a simple visualization of the data you will use:
+
+```{r geom sf visualization, echo=TRUE, message=FALSE, warning=FALSE}
+ggplot(data = montco_tracts) + geom_sf()
+```
+
+<b><big>Question No. 1</big></b>
+<blockquote>
+If you were interested in obtaining information for the census tracts around Nashville, how would you alter the code above?
+</blockquote>
+
+</details>
+
+## Step Two: The Analyses
+
+In this step you will organize and display the data in order to prepare it for the final visualization.
+
+<details>
+<summary><big>View Directions in <b> [ArcGIS Pro]{style="color:#ff4500"} </b></big></summary>
+
+Blah...blah...blah...
+
+<b><big>Question No. 2</big></b>
+<blockquote>
+_Insert Text Here_
+</blockquote>
+
+</details>
+<hr></hr>
+
+<details>
+<summary><big>View Directions in <b> [QGIS]{style="color:#006400"} </b></big></summary>
+
+Blah...blah...blah...
+
+<b><big>Question No. 2</big></b>
+<blockquote>
+_Insert Text Here_
+</blockquote>
+
+</details>
+<hr></hr>
+
+<details>
+<summary><big>View Directions in <b> [R]{style="color:#6495ED"} </b></big></summary>
+
+Now that you have polygons for the census tracts in Montgomery County, you will need to merge the population information. Similar to [Exercise 1, Step 1](https://chrismgentry.github.io/GIS1-Exercise-2/#12_Step_Two:_The_Analysis), you can use the ```read.csv()``` function to obtain the population dataset. However, there is one alteration to the code you will make for this exercise. One of the variables in this dataset titled "**Tract**" needs to match that of "**NAME**" in the census data. In the census dataset it is set to _character_ (meaning text) and in the population data it is set to _double_ (a type of numeric data). In order to make them match, you can add ```colClasses=c(Tract="character")``` to the ```read.csv()``` function to change the variable on import. The script would look like this:
+
+```{r population data, echo=TRUE, message=FALSE, warning=FALSE}
+population <- read.csv('https://raw.githubusercontent.com/chrismgentry/GIS1-Exercise-3/main/Data/mont_co_pop.csv', colClasses=c(Tract="character"))
+head(population)
+```
+
+Notice in the table generated with the ```head()``` function the variable now has _\<chr>_&nbsp; listed as its class. This is a useful addition for future scripts as you can generally identify any variable and change its class prior to importing the data.
+
+Using the same process as in [Exercise 2, Step 2](https://chrismgentry.github.io/GIS1-Exercise-2/#12_Step_Two:_The_Analysis), you will use the ```merge()``` function to combined the **montco_tracts** and **population** datasets. When merging the datasets you need to identify which datasets (x and y) and which common variable (by.x and by.y) will be used for the merge.
+
+```{r merge data, echo=TRUE, message=FALSE, warning=FALSE}
+tract_pop <- merge(x = montco_tracts, y = population, by.x = "NAME", by.y = "Tract", all = TRUE)
+```
+
+Using the ```str()``` or ```head()``` function you can view the structure of the new dataset. Familiarize yourself with the different variables for future analyses. More information on the ```merge()``` function can be found by Googling [merge() function r](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/merge). You can now use ```ggplot``` to visualize the data based on a variable such as **total_pop** (total population).
+
+```{r plot total pop, echo=TRUE, message=FALSE, warning=FALSE}
+ggplot() + geom_sf(data = tract_pop, aes(fill = total_pop))
+```
+
+Before you can analyze whether or not the new school is being built in the appropriate location, you need to add the information for the current school as well as the proposed school location.
+
+Like adding the _population data_ earlier in this section, use the **<-** operator to create an object and the ```read.csv()``` function with the following link to connect to the current school dataset:
+
+```
+https://raw.githubusercontent.com/chrismgentry/GIS1-Exercise-3/main/Data/county_schools.csv
+```
+
+Unlike the previous step, there is no need to alter the dataset using ```colClasses```. Use ```head()``` to view the variables. Finally, you need to create a new data point for the new school. For this you will create a data frame that includes variables for longitude, latitude, and name.
+
+<blockquote>
+A data frame is a table or a two-dimensional array-like structure in which each column contains values of one variable and each row contains one set of values from each column.
+</blockquote>
+
+To create the data frame you will use the following script:
+
+```{r new school point, echo=TRUE, message=FALSE, warning=FALSE}
+new_school <- data.frame(x  = -87.19495519624655, y = 36.56793328339189, name = "New School")
+```
+
+In this script ```data.frame()``` is the function and ```x``` = the longitude, ```y``` = the latitude, and ```name``` = is the variable for the name. Use ```head()``` to view the data frame.
+
+<b><big>Question No. 2</big></b><br>
+Just as **\<-** can be used to create an object, **\$** can be used after an object to examine a specific variable within the dataset. For example ```summary(tract_pop$total_pop)``` can be used to summarize the total population variable.
+<blockquote>
+Using the example above, replace the variable and answer the following question: What is the maximum number of males and females in the dataset?
+</blockquote>
+
+</details>
+
+## Step Three: The Visualization
+
+You will now create a graphical display of your data that includes cartographic elements such as legend, scale bar, north arrow, etc.
+
+<details><summary><big>View directions in <b> [ArcGIS Pro]{style="color:#ff4500"} </b></span></big></summary>
+
+Blah...blah...blah...
+
+Question No. 3
+<blockquote>
+_Insert Text Here_
+</blockquote>
+
+</details>
+<hr></hr>
+
+<details><summary><big>View directions in <b> [QGIS]{style="color:#006400"} </b></span></big></summary>
+
+Blah...blah...blah...
+
+Question No. 3
+<blockquote>
+_Insert Text Here_
+</blockquote>
+
+</details>
+<hr></hr>
+
+<details><summary><big>View directions in <b> [R]{style="color:#6495ED"} </b></span></big></summary>
+
+With these datasets you are now ready to create a map to examine the distribution of school-aged children across the county in relation to the current schools and future school. In Step 1 and 2 of this exercise and [Exercise 2, Step 3](https://chrismgentry.github.io/GIS1-Exercise-2/#13_Step_Three:_The_Visualization) you used ```ggplot2``` to visualize the data. However, because of the difference in data types, in this exercise you used the ```geom_sf()``` function instead of ```geom_polygon()``` like in the last exercise. Building on the previous script, you will now use ```geom_point()``` to add the schools information. Remembering back to the introduction, the goal of this analysis is to help determine if the location for the new school is appropriate based on the needs of the county. This means the _fill_&nbsp; portion of the aesthetics will need to represent the correct variable in the dataset.
+
+Please refer back to [Exercise 2](https://chrismgentry.github.io/GIS1-Exercise-2) if you need a refresher on some of the basics elements of mapping data in ```ggplot2  ```. The construction of this map will be very similar to the previous final map. You will use a combination of ```ggplot2``` to plot the information and ```ggsn``` to add the scale bar and north arrow. In this exercise you are going to add some additional theme information to further customize your map.
+
+To begin you will use a similar script from [Exercise 2, Step 3](https://chrismgentry.github.io/GIS1-Exercise-2/#13_Step_Three:_The_Visualization) substituting the necessary objects, variables, and swapping ```geom_polygon``` for ```geom_sf```:
+
+```{r first map, echo=TRUE, message=FALSE, warning=FALSE}
+ggplot() + 
+  geom_sf(data = tract_pop, aes(fill = age5_18yo), color = "white") +
+  scale_fill_viridis_c(option = "D")
+```
+
+In this example, you set the data object to **tract_pop** which was created by merging the census tract and population datasets. In the _aesthetics_&nbsp; (```aes()```), the _fill_&nbsp; is set to the variable **age5_18yo** (a variable indicative of school-aged children). When used within the ```aes()```, _fill_&nbsp; will be used to graphically sort the dataset; in this case by the 5-18yo age bracket. [Exercise 2](https://chrismgentry.github.io/GIS1-Exercise-2) you used the ```scale_fill_viridis_c()``` function to set the color ramp of the data. Refer back to Exercise 2 or Google [scale_fill_viridis_c()](https://ggplot2.tidyverse.org/reference/scale_viridis.html) for more information on the function and its color options. 
+
+With the census tracts added, you need to add the CMCSS school and the new proposed school. This will be accomplished by using the ```geom_point()``` function and identifying the appropriate objects and aesthetics. 
+
+```{r second map, echo=TRUE, message=FALSE, warning=FALSE}
+ggplot() + 
+  geom_sf(data = tract_pop, aes(fill = age5_18yo), color = "white") +
+  scale_fill_viridis_c(option = "D") +
+  geom_point(data = schools, aes(x=X, y=Y), size = 3, shape = 21,
+             fill = "black", color = "white") +
+  geom_point(data = new_school, aes(x=x, y=y,), 
+             shape = 8, size = 5, color = "red")
+```
+
+When you examined the structure of the **schools** and **new_school** you should have noticed _x_ and _y_ variables in each dataset. This information is used to plot the location of the points in the ```aes()``` portion of each ```geom_point()``` function. Only the information used to identify the axis location (x,y) or modify the geometry (polygon, point, etc.) based on a variable in the dataset should be included within the ```aes()```. Any other modification of the geometry not connected to the dataset should be outside of the ```aes()```. So for this example size, shape, color, and fill are added to customize the points.
+
+- **size =**, this will be a numerical value to indicate the size of the point
+- **shape =**, modifies the appearance of the geometry. Each unique shape is identified by a numerical value. More information about the types of shapes that can be used can be found [here](https://ggplot2.tidyverse.org/articles/ggplot2-specs.html).
+- **color =**, (outside of ```aes()```) alters the color of the geometry or border. Most any hexadecimal value or color name can be used in R. Regardless of the method used, the values must be enclosed within quotation marks. A list of color options can be found [here](https://en.wikipedia.org/wiki/Web_colors)
+- **fill =**, (outside of ```aes()```) like color modifies the appearance of the geometry. When used with a geometry that has a border, fill refers to the geometry and color refers to the border. When attempting to modify a solid object, use color to customize the geometry.
+
+You should feel free to experiment with different size, shape, fill, and color aesthetics to customize your own maps.
+
+Next you need to add the ```scalebar()```, ```north()``` arrow, and name/date of the creator (using ```annotate()```) to the map. Remember that the location of these elements are defined by the gridded location on the map. Because this map is centered on Montgomery County, the range of longitude varies from about -87.10&deg; --- -87.60&deg; West to 36.30&deg; --- 36.65&deg; North. So all of the ```anchor = c()``` values should be within those ranges. 
+
+```{r third map, echo=TRUE, message=FALSE, warning=FALSE}
+ggplot() + 
+  geom_sf(data = tract_pop, aes(fill = age5_18yo), color = "white") +
+  scale_fill_viridis_c(option = "D") +
+  geom_point(data = schools, aes(x=X, y=Y), size = 3, shape = 21,
+             fill = "black", color = "white") +
+  geom_point(data = new_school, aes(x=x, y=y), shape = 8, size = 5,
+             color = "red") +
+  north(tract_pop, location = "bottomleft", scale = 0.05, symbol = 12, anchor = c(x=-87.15, y=36.31)) + 
+  scalebar(tract_pop, dist = 5, dist_unit = "mi", transform = TRUE, model = "WGS84", location = "bottomleft", 
+           st.dist = 0.02, st.size = 2, anchor = c(x= -87.65, y= 36.31)) +
+  annotate("text", x = -87.22, y = 36.35, label = "Chris Gentry\n August 2021", size = 2)
+```
+
+Additional details about the north arrow and scale bar can be found in [Exercise 2](https://chrismgentry.github.io/GIS1-Exercise-2) or by Googling [ggsn package r](https://cran.r-project.org/web/packages/ggsn/ggsn.pdf). Having the longitude and latitude values currently displayed on the map should help you adjust the position of these elements. However, in the final map these are not be necessary, so adding ```theme_void()``` in the next step will remove the grid, gray background, and displayed x,y axes.
+
+To complete the map, you need to add a title, adjust the name of the legend to something more appropriate for the data, and add a label for the _new school_. Similar to the previous exercise you can use ```labs()``` to add ```title=``` information. To add the label to the _new school_ you will use the ```geom_text()``` function. In order to customize the position of the label, ```nudge_y=``` and ```nudge_x=``` values can be added. The _data_ and ```aes()``` scripts will match the information from the ```geom_point()``` with the addition of a **label** option to the ```aes()``` and other customizations. To alter the legend title, a text option needs to be added to the ```scale_fill_viridis_c()``` function.
+
+```{r final map, echo=TRUE, message=FALSE, warning=FALSE}
+ggplot() + 
+  geom_sf(data = tract_pop, aes(fill = age5_18yo), color = "white") +
+  scale_fill_viridis_c(option = "D", "No. of Children") +
+  geom_point(data = schools, aes(x=X, y=Y), size = 3, shape = 21,
+             fill = "black", color = "white") +
+  geom_point(data = new_school, aes(x=x, y=y), shape = 8, size = 5,
+             color = "red") +
+  north(tract_pop, location = "bottomleft", scale = 0.05, symbol = 12, anchor = c(x=-87.15, y=36.31)) + 
+  scalebar(tract_pop, dist = 5, dist_unit = "mi", transform = TRUE,
+           model = "WGS84", location = "bottomleft",
+           st.dist = 0.02, st.size = 2, anchor = c(x= -87.65, y= 36.31)) +
+  annotate("text", x = -87.22, y = 36.35, label = "Chris Gentry\n August 2021", size = 2) +
+  labs(title = "School Aged Children per Census Tract and CMCSS Locations") +
+  geom_text(data = new_school, aes(x=x,y=y, label = name), nudge_y = 0.025, nudge_x = 0.0, color = "white") +
+  theme_void()
+```
+
+<b><big>Question No. 3</big></b>
+<blockquote>
+What is the relationship between the location of the new school and the population of children within the census tracts?
+</blockquote>
+
+</details>
+
+## Step Four: Your Turn
+
+After presenting this information at the advocacy group meeting, one of the committee members asks how this information will change over the next 5 years. Fortunately you already have the information you need to determine this. In the population data set there is a variable for children that are in the 0-5 year old age range. This is the "future" student population. Edit your map to show the census tract based on this variable instead of the current student population (age5_18yo). Software specific directions can be found for each step below. Please submit the answer to the questions you answered as well as your final map by the due date.
+
+<details><summary><big>View directions in <b> [ArcGIS Pro]{style="color:#ff4500"} </b></span></big></summary>
+
+Blah...blah...blah...
+
+Question No. 4
+<blockquote>
+_Insert Text Here_
+</blockquote>
+
+</details>
+<hr></hr>
+
+<details><summary><big>View directions in <b> [QGIS]{style="color:#006400"} </b></span></big></summary>
+
+Blah...blah...blah...
+
+Question No. 4
+<blockquote>
+_Insert Text Here_
+</blockquote>
+
+</details>
+<hr></hr>
+
+<details><summary><big>View directions in <b> [R]{style="color:#6495ED"} </b></span></big></summary>
+
+In order to answer the question you simply need to adjust the fill variable. Remember you can use ```head()``` or ```str``` to view the variables in the dataset. Using the scrip from step you should change the following:
+
+- Polygon fill ```geom_sf(data = tract_pop, aes(fill =))``` to the variable for 0-5 year old children
+- Title of the map to reflect the new information
+
+<b><big>Question No. 4</big></b>
+<blockquote>
+How did census tract populations change with the move from 5-18 year old to 0-5 year old?
+</blockquote>
+
+</details>
+
+# The Write-Up
+
+In the report you provide to the advocacy group please provide the following information:
+
+- What area of the county has the highest population of 5-18yo students?
+- How did this information change when examining 0-5yo population?
+- Based on your analysis, how well does the proposed location of the new school address current and future needs of CMCSS families?
+
+When complete, send a link to your _Colab Notebook_ or word document with answers to Questions 1-4 and your completed map via email.
