@@ -78,11 +78,24 @@ The data you will be using for this exercise comes from the 2019 American Commun
 <details>
 <summary><big>View Directions in <b> [ArcGIS Pro]{style="color:#ff4500"} </b></big></summary>
 
-Blah...blah...blah...
+As with the [previous exercise](https://chrismgentry.github.io/GIS1-Exercise-2/), you will begin by launching [ArcGIS Pro]{style="color:#ff4500"} from the start menu or desktop shortcut. On the initial splash screen select **Map** from _New > Blank Templates_ in the middle section of the screen. On the next screen, provide a name for your new project, and set the location to folder on the computer where you are storing all of your GIS1 exercises. 
 
-<b><big>Question No. 1</big></b>
+<p align="center"><img src= "Images/arcgis-create-new-project.jpg" alt="Project name and location" width="520" height="175"></p>
+
+This will save and open a new project with the _World Topographic Map_&nbsp; and _World Hillshade_&nbsp; in the Table of Contents.
+
+In order to complete this exercise you will need to download the **[Census Track](https://github.com/chrismgentry/GIS1-Exercise-3/raw/main/Data/Shapefiles/census_tracts.zip)** and **[CMCSS Schools](https://github.com/chrismgentry/GIS1-Exercise-3/raw/main/Data/Shapefiles/cmcss_schools.zip)** zip files and extract them in your project folder. You can use those links or navigate to the [Exercise 3 GitHub Page](https://github.com/chrismgentry/GIS1-Exercise-3) and click on _Data > Shapefiles_ and click on each zip file to find the download button for the dataset. Once <u>downloaded and extracted</u>, these files should be available to your project.
+
+On the _Map_&nbsp; tab, click the **Add Data** button <img src= "Images/arcgis-add-data.jpg" alt="Add Data Button" width="20" height="20"> and navigate to your project folder containing your data and add the _census_tracts_&nbsp; and _cmcss_school_&nbsp; shapefiles to your view. Your screen should look similar to this:
+
+<p align="center"><div class="zoom"><img src= "Images/arcgis-ex3-data.jpg" alt="Ex3 Datasets" style="width:100%"></div></p>
+
+If you have questions about this step you can always refer back to [Exercise 2, Step One](https://chrismgentry.github.io/GIS1-Exercise-2/#11_Step_One:_The_Data) for more detail.
+
+<b><big>Question No. 1</big></b><br>
+Using the attribute table for _cmcss_schools_&nbsp; answer the question below:
 <blockquote>
-_Insert Text Here_
+How many elementary schools are in Montgomery County and how are they identified differently from middle and high schools in the attribute table?
 </blockquote>
 
 </details>
@@ -154,11 +167,39 @@ In this step you will organize and display the data in order to prepare it for t
 <details>
 <summary><big>View Directions in <b> [ArcGIS Pro]{style="color:#ff4500"} </b></big></summary>
 
-Blah...blah...blah...
+Before you can analyze the relationship between student population and the proposed new school, you need to create a marker for where the school will be located. To do this you will click the **Go To XY** button on the _Map_&nbsp; tab. This will open a new menu at the bottom of the screen where you can input longitude and latitude values.
+
+<p align="center"><img src= "Images/arcgis-go-to-xy.png" alt="XY button and menu" width="450" height="142"></p>
+
+In the new menu, type the longitude and latitude values in the boxes provided and click the _Mark Location_&nbsp; button <img src= "Images/arcgis-push-pin.jpg" alt="Marker Button" width="20" height="20"> to add a marker. The longitude and latitude values are:
+
+```Longitude = -87.1950  Latitude = 36.5680```
+
+If you right-click on the new _Graphics Layer_&nbsp; and select properties, you can go to the _General_&nbsp; tab and change the name to "New School". To change the style or look of the marker, be sure to have the **New School** element selected in the _Table of Contents_&nbsp;, on the new _Graphics Tab_&nbsp; use the select tool <img src= "Images/arcgis-select-tool.jpg" alt="Select Tool" width="20" height="20"> to select the marker and use the options within the **Symbology** portion of the tab to alter the symbol, fill color, outline stroke, etc.
+
+<p align="center"><div class="zoom"><img src= "Images/arcgis-new-school.jpg" alt="New School Marker" style="width:100%"></div></p>
+
+Finally, similar to the steps in [Exercise 2, Step 2](https://chrismgentry.github.io/GIS1-Exercise-2/#12_Step_Two:_The_Analysis), you need to use graduate color to symbolize the various tracts by the **pop_5_18yo** population data. To do that you will use the symbology button <img src= "Images/arcgis-symbology-button.jpg" alt="Symbology Button" width="25" height="25"> to gain access to the graduated color menu. Be sure to have **montoco_tracts** selected in the _Table of Contents_&nbsp; and click on the _Appearance_&nbsp Tab in the Feature Layer Menu. Click on the option for "Graduate Color" from the drop-down menu.
+
+In the resulting Symbology window, select the following options:
+
+- Primary Symbology = Graduated Colors
+- Field = pop_5_18yo
+- Normalization = \<None>
+- Method = Defined Interval
+- Interval Size = 500
+- Classes = 5
+- Color Scheme = Viridis
+
+<p align="center"><img src= "Images/arcgis-graduated-colors.jpg" alt="Graduated Color Options" width="236" height="417"></p>
+
+You can now close the symbology window and view the results.
+
+<p align="center"><div class="zoom"><img src= "Images/arcgis-5-18yo.jpg" alt="Visualization of 5-18yo per tract" style="width:100%"></div></p>
 
 <b><big>Question No. 2</big></b>
 <blockquote>
-_Insert Text Here_
+By using the attribute table, which tracts (NAME column) have the largest number of males and females in the dataset?
 </blockquote>
 
 </details>
@@ -171,7 +212,7 @@ Blah...blah...blah...
 
 <b><big>Question No. 2</big></b>
 <blockquote>
-_Insert Text Here_
+_Insert Text HEre_
 </blockquote>
 
 </details>
@@ -237,11 +278,21 @@ You will now create a graphical display of your data that includes cartographic 
 
 <details><summary><big>View directions in <b> [ArcGIS Pro]{style="color:#ff4500"} </b></span></big></summary>
 
-Blah...blah...blah...
+Following the same directions in [Exercise 2, Step 3](https://chrismgentry.github.io/GIS1-Exercise-2/#13_Step_Three:_The_Visualization) you will now create a map of this data. Remember, to complete your visualization you will need to add: the data, title, legend, north arrow, scale bar, and your name and date. Because all of the information for adding these elements is detailed in the **[previous exercise](https://chrismgentry.github.io/GIS1-Exercise-2/#13_Step_Three:_The_Visualization)**, this exercise will not walk through adding them step-by-step. 
 
-Question No. 3
+From the _Insert Tab_&nbsp; click the **New Layout** button <img src= "Images/arcgis-layout-button.png" alt="Layout Button" width="20" height="20"> and select _ANSI - Landscape, Letter 8.5" x 11"_&nbsp; to set up the page.
+
+<p align="center"><div class="zoom"><img src= "Images/arcgis-ex3-layout.jpg" alt="New Layout" style="width:100%"></div></p>
+
+As you are working to create your final visualization, to edit, move or adjust each individual element of your map you must have it selected in the table of contents. When adding text elements, it might help to rename each of the text elements to be able to correctly identify them.
+
+<p align="center"><div class="zoom"><img src= "Images/arcgis-ex3-map.jpg" alt="Map" style="width:100%"></div></p>
+
+You should use your own style and creative ideas to personalize your map. The images used in the exercise are examples of how different elements can be displayed.
+
+<big><b>Question No. 3</b></big>
 <blockquote>
-_Insert Text Here_
+What is the relationship between the location of the new school and the population of children within the census tracts?
 </blockquote>
 
 </details>
@@ -347,11 +398,11 @@ After presenting this information at the advocacy group meeting, one of the comm
 
 <details><summary><big>View directions in <b> [ArcGIS Pro]{style="color:#ff4500"} </b></span></big></summary>
 
-Blah...blah...blah...
+In order to answer the question above, you need to examine the attribute table and determine which variable contains the information for children aged 0-5 years old. For your final map, you should be able to keep the majority of your map the same and just alter the field for the graduated color. Be sure to determine what the appropriate interval size should be as the values for children 5-18yo will be different than the number of children between 0-5yo.
 
-Question No. 4
+<big><b>Question No. 4</b></big>
 <blockquote>
-_Insert Text Here_
+How did census tract populations change with the move from 5-18 year old to 0-5 year old?
 </blockquote>
 
 </details>
