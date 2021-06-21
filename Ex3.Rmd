@@ -104,11 +104,22 @@ How many elementary schools are in Montgomery County and how are they identified
 <details>
 <summary><big>View directions in <b> [QGIS]{style="color: #006400"} </b></big></summary>
 
-Blah...blah...blah...
+As with the [previous exercise](https://chrismgentry.github.io/GIS1-Exercise-2/), you will begin by launching [QGIS Pro]{style="color:#006400"} from the start menu, launchpad, or desktop shortcut. On the initial splash screen select **New Empty Project** from _Templates_ in the middle section of the screen.
+
+<p align="center"><img src= "Images/qgis-new-project.jpg" alt="New Empty Project" width="494" height="140"></p>
+
+In order to complete this exercise you will need to download the **[Census Track](https://github.com/chrismgentry/GIS1-Exercise-3/raw/main/Data/Shapefiles/census_tracts.zip)** and **[CMCSS Schools](https://github.com/chrismgentry/GIS1-Exercise-3/raw/main/Data/Shapefiles/cmcss_schools.zip)** zip files and extract them in your exercise folder. You can use those links or navigate to the [Exercise 3 GitHub Page](https://github.com/chrismgentry/GIS1-Exercise-3) and click on _Data > Shapefiles_ and click on each zip file to find the download button for the dataset. Once <u>downloaded and extracted</u>, these files should be available to your exercise.
+
+In the Browser window on the left, navigate to the folder where you saved and unzipped the exercise data folder. Once you locate the folder in the browser, you can select the **montco_tracts.shp** and **cmcss_schools** files and click-and-drag them to the map canvas. Your screen should look similar to this:
+
+<p align="center"><div class="zoom"><img src= "Images/qgis-ex3-data.png" alt="Ex3 Datasets" style="width:100%"></div></p>
+
+If you have questions about this step you can always refer back to [Exercise 2, Step One](https://chrismgentry.github.io/GIS1-Exercise-2/#11_Step_One:_The_Data) for more detail.
 
 <b><big>Question No. 1</big></b>
+Using the attribute table for _cmcss_schools_&nbsp; answer the question below:
 <blockquote>
-_Insert Text Here_
+How many elementary schools are in Montgomery County and how are they identified differently from middle and high schools in the attribute table?
 </blockquote>
 
 </details>
@@ -208,11 +219,41 @@ By using the attribute table, which tracts (NAME column) have the largest number
 <details>
 <summary><big>View Directions in <b> [QGIS]{style="color:#006400"} </b></big></summary>
 
-Blah...blah...blah...
+Before you can analyze the relationship between student population and the proposed new school, you need to create a marker for where the school will be located. To do this you will go to **Layer > Create Layer > New Temporary Scratch Layer** on the menu bar. This will open a new menu where you will create a temporary point named New School.
+
+<p align="center"><div class="zoom"><img src= "Images/qgis-new-scratch-layer.png" alt="New Scratch Layer" style="width:100%"></div></p>
+
+With the new scratch layer added, be sure the layer is selected in the _Layers Section_, and turn editing on by using the Toggle Editing <img src= "Images/qgis-toggle-editing.jpg" alt="Toggle Editing" width = "20" height = "20"> button. With editing on, the use the **Add Point Feature** button <img src= "Images/qgis-add-point-feature-button.png" alt="Add Point Feature" width = "20" height = "20"> and click on the map to create a point. Because we are going to edit the longitude and latitude it does not matter where you place the point. With the point added, click the **Vertex Tool** button <img src= "Images/qgis-vertex-tool.jpg" alt="Toggle Editing" width = "20" height = "20"> button and double-click on the point you made.
+
+<p align="center"><div class="zoom"><img src= "Images/qgis-vertex-editor.png" alt="Vertex Editor" style="width:100%"></div></p>
+
+This will open the vertex editor options and allow you to edit the longitude and latitude coordinates of the point.
+
+```Longitude = -87.1950  Latitude = 36.5680```
+
+In the editor change the values to the longitude and latitude listed above. This will adjust the point and place it in the appropriate location.
+
+<p align="center"><img src= "Images/qgis-vertex-editor-xy.jpg" alt="Vertex Editor Options" width = "344" height = "240"></p>
+
+With the point moved, you can now use the symbology properties to change the new school point to make it unique from the current schools.
+
+Finally, similar to the steps in [Exercise 2, Step 2](https://chrismgentry.github.io/GIS1-Exercise-2/#12_Step_Two:_The_Analysis), you need to use graduate color to symbolize the various tracts by the **pop_5_18yo** population data. In the right-click/control-click menu for **montoco_tracts** click properties and navigate to the symbology tab. In the resulting Symbology window, select the following options:
+
+- Graduated
+- Value = pop_5_18yo
+- Color Ramp = Viridis
+- Mode = Pretty Breaks
+- Classes = 5
+
+<p align="center"><img src= "Images/qgis-montco-tracts-symbology.jpg" alt="Vertex Editor Options" width = "500" height = "460"></p>
+
+You can now close the symbology window and view the results.
+
+<p align="center"><div class="zoom"><img src= "Images/qgis-5-18yo.png" alt="Visualization of 5-18yo per tract" style="width:100%"></div></p>
 
 <b><big>Question No. 2</big></b>
 <blockquote>
-_Insert Text HEre_
+By using the attribute table, which tracts (NAME column) have the largest number of males and females in the dataset?
 </blockquote>
 
 </details>
@@ -300,11 +341,21 @@ What is the relationship between the location of the new school and the populati
 
 <details><summary><big>View directions in <b> [QGIS]{style="color:#006400"} </b></span></big></summary>
 
-Blah...blah...blah...
+Following the same directions in [Exercise 2, Step 3](https://chrismgentry.github.io/GIS1-Exercise-2/#13_Step_Three:_The_Visualization) you will now create a map of this data. Remember, to complete your visualization you will need to add: the data, title, legend, north arrow, scale bar, and your name and date. Because all of the information for adding these elements is detailed in the **[previous exercise](https://chrismgentry.github.io/GIS1-Exercise-2/#13_Step_Three:_The_Visualization)**, this exercise will not walk through adding them step-by-step. 
 
-Question No. 3
+From the menu bar click **Program > New Print Layout**.
+
+<p align="center"><div class="zoom"><img src= "Images/qgis-add-map-box.png" alt="Ex3 Layout" style="width:100%"></div></p>
+
+As you are working to create your final visualization, remember to right-click/control-click on each item to access the properties that will allow you to customize the items. Refer back to the previous exercise (linked above) for more information on each item.
+
+<p align="center"><div class="zoom"><img src= "Images/qgis-ex3-map.jpg" alt="Ex3 Map" style="width:100%"></div></p>
+
+You should use your own style and creative ideas to personalize your map. The images used in the exercise are examples of how different elements can be displayed.
+
+<b><big>Question No. 3</big></b>
 <blockquote>
-_Insert Text Here_
+What is the relationship between the location of the new school and the population of children within the census tracts?
 </blockquote>
 
 </details>
@@ -410,11 +461,11 @@ How did census tract populations change with the move from 5-18 year old to 0-5 
 
 <details><summary><big>View directions in <b> [QGIS]{style="color:#006400"} </b></span></big></summary>
 
-Blah...blah...blah...
+In order to answer the question above, you need to examine the attribute table and determine which variable contains the information for children aged 0-5 years old. For your final map, you should be able to keep the majority of your map the same and just alter the field for the graduated color.
 
-Question No. 4
+<big><b>Question No. 4</b></big>
 <blockquote>
-_Insert Text Here_
+How did census tract populations change with the move from 5-18 year old to 0-5 year old?
 </blockquote>
 
 </details>
