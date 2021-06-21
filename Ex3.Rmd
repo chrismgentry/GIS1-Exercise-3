@@ -349,7 +349,7 @@ From the menu bar click **Program > New Print Layout**.
 
 As you are working to create your final visualization, remember to right-click/control-click on each item to access the properties that will allow you to customize the items. Refer back to the previous exercise (linked above) for more information on each item.
 
-<p align="center"><div class="zoom"><img src= "Images/qgis-ex3-map.jpg" alt="Ex3 Map" style="width:100%"></div></p>
+<p align="center"><img src= "Images/qgis-ex3-map.jpg" alt="Ex3 Map" style="width:100%"></p>
 
 You should use your own style and creative ideas to personalize your map. The images used in the exercise are examples of how different elements can be displayed.
 
